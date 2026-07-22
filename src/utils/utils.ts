@@ -15,9 +15,28 @@ function getToday() {
   });
 }
 
-const logger = pino();
-
-const client =  new Client({ authStrategy: new LocalAuth() })
+const logger = pino({
+  transport: {
+    targets: [
+      {
+        target: "pino-pretty",
+        level: "info",
+        options: {
+          colorize: true,
+        },
+      },
+      {
+        target: "pino/file",
+        level: "info",
+        options: {
+          destination: "./logs/app.log",
+          mkdir: true,
+        },
+      },
+    ],
+  },
+});
+const client = new Client({ authStrategy: new LocalAuth() })
 
 
 export { formatTime, getToday, logger, client };
