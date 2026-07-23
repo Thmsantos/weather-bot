@@ -48,6 +48,8 @@ PHONES=55XXXXXXXXXXX,55XXXXXXXXXX
 LOCALIZATIONS=São Paulo,Consolação,Jabaquara
 ```
 
+Local to discovery your open weather api key -> [open weather site](https://open-meteo.com/)
+
 ---
 
 ## ▶️ Running
@@ -70,19 +72,62 @@ Runs every day at 05:00 AM.
 
 ---
 
-## 📁 Structure
+## 🧱 Architecture
+
+This project follows a **modular and layered architecture**, separating responsibilities for better scalability and maintainability.
+
 
 ```
 src/
-  config/
-  contracts/
-  jobs/
-  service/
-  utils/
+config/ → Environment variables and configuration
+contracts/ → Type definitions and data schemas (Zod)
+jobs/ → Scheduled tasks (cron jobs)
+service/ → Business logic and external integrations
+utils/ → Shared utility functions
+index.ts → Application entry point
 ```
+
+---
+## 🔹 Layers Explained
+
+### 📦 config/
+Handles environment configuration and validation.
+- Loads `.env`
+- Centralizes config access
+
+---
+### 🧾 contracts/
+Defines application data structures.
+- Weather response types
+- Forecast schemas
+- Validation using Zod
+
+---
+### ⏰ jobs/
+Responsible for automation.
+- Cron scheduling
+- Triggers weather sending job
+
+---
+### ⚙️ service/
+Core of the application.
+- Weather API integration
+- Forecast processing
+- WhatsApp message sending
+
+---
+### 🧰 utils/
+Reusable helpers used across the app.
+
+---
+### 🚀 index.ts
+Application entry point.
+
+- Initializes services
+- Starts scheduled jobs
+- Boots the WhatsApp client
 
 ---
 
 ## 📄 License
-
 MIT
